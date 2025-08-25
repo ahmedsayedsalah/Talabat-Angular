@@ -1,0 +1,17 @@
+<header>
+  <span *ngIf="params.count > 0"
+    >Showing
+    <strong>
+      {{ (params.pageIndex - 1) * params.pageSize + 1 }} -
+      {{
+        params.pageIndex * params.pageSize > params.count
+          ? params.count
+          : params.pageIndex * params.pageSize
+      }}
+    </strong>
+    of <strong>{{ params.count }}</strong> Results</span
+  >
+  <span *ngIf="params.count === 0">
+    There are <strong>0</strong> Results for this filter
+  </span>
+</header>

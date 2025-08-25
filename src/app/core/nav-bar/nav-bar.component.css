@@ -1,0 +1,29 @@
+.card-no{
+    position: absolute;
+    min-width: 25px;
+    min-height: 25px;
+    font-size: 1em;
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    top: -12px;
+    right: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: #343a40;
+}
+
+a.active {
+  color: orange !important;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo:focus{
+    outline: none;
+}

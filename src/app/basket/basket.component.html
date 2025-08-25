@@ -1,0 +1,57 @@
+
+<div class="container mt-4">
+    
+  <div class="row">
+    <h3 *ngIf="(basket$|async) == null">there are not any items inside this basket</h3>
+    
+<table *ngIf="(basket$|async)" class="table">
+  <thead>
+    <tr class="table-active">
+      <th scope="col">Product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+      <th class="text-center" scope="col">Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of (basket$|async)?.items">
+      <td>
+        <div class="row d-flex justify-content-between">
+            <img [src]="item.pictureUrl" class="img-fluid" [alt]="item.productName" style="width: 100px;">
+            <div class="col-10">
+                <h5>
+                    <a style="text-decoration: none;"routerLink="/shop/{{item.id}}" routerLinkActive="router-link-active"  class="text-uppercase text-dark mb-3">{{item.productName}}</a>
+                </h5>
+                <p class="text-muted">Type: {{item.type}}</p>
+            </div>
+        </div>
+      </td>
+      <td >
+        <span style="font-size: 1.25rem;">{{item.price|currency}}</span>
+      </td>
+      <td>
+        <i (click)="decrementItemQuantity(item)" class="fa-solid fa-circle-minus text-warning me-2" style="cursor: pointer;font-size: 1.5rem;"></i>
+        <span style="font-size: 1.5rem;">{{item.quantity}}</span>
+        <i (click)="incrementItemQuantity(item)" class="fa-solid fa-circle-plus text-warning ms-2" style="cursor: pointer;font-size: 1.5rem;"></i>
+      </td>
+      <td><span style="font-size: 1.25rem;">{{item.quantity*item.price | currency}}</span></td>
+      <td class="text-center"><a class="text-danger"><i (click)="removeItemFromBasket(item)" class="fa-solid fa-trash fs-2" style="cursor: pointer;"></i></a></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+
+  <div class="row">
+    <div class="col-4 offset-8">
+      <app-order-totals></app-order-totals>
+
+      <a *ngIf="(basket$|async)" routerLink="/checkout" class="py-3 btn btn-outline-primary btn-block w-100">
+         Proceed to checkout
+      </a>
+    </div>
+  </div>
+
+</div>
+
+
