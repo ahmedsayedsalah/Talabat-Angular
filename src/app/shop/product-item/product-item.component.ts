@@ -17,6 +17,8 @@ export class ProductItemComponent {
   }
 
   addItemToBasket(){
+    console.log("Product to add to basket", this.product);
+    console.log("basket status", this.basketService.basket$);
     this.basketService.addItemToBasket(this.product);
   }
 }

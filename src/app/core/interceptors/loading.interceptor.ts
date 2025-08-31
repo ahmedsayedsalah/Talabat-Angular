@@ -6,7 +6,10 @@ import { delay, finalize } from 'rxjs';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   let ngxSpinnerService= inject(BusyService);
-  ngxSpinnerService.busy();
+  if(!req.url.includes("emailexists"))
+  {
+    ngxSpinnerService.busy();
+  }
   return next(req).pipe(
     delay(1000),
     finalize(()=>{

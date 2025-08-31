@@ -121,7 +121,7 @@ export class BasketService {
   calculateTotals(){
     const basket= this.getCurrentBasketValue();
       const shipping=0;
-      const subTotal= basket?.items.reduce((a,b)=> (b.price*b.quantity)+a,0)?? 0;
+      const subTotal= basket?.items?.reduce((a,b)=> (b.price*b.quantity)+a,0)?? 0;
       const total= subTotal + shipping;
       return {shipping, subTotal, total};
   }
@@ -131,18 +131,26 @@ export class BasketService {
   }
 
   addItemToBasket(item: IProduct, quantity =1){
+    console.log("Adding item to basket", item);
     const itemToAdd:IBasketItem = this.mapProductToBasketItem(item, quantity);
-    console.log("Item to add to basket", itemToAdd);
+    console.log("BasketItem to add to basket", itemToAdd);
     const basket= this.getCurrentBasketValue() ?? this.createBasket();
-    // basket?.items.push(itemToAdd);
-    basket?.items!= this.addOrUpdateItemInBasket(basket?.items!, itemToAdd);
     console.log("Current basket value", basket);
+    console.log("Current basket items", basket?.items);
+    // basket?.items.push(itemToAdd);
+    if(basket)
+    {
+      basket.items= this.addOrUpdateItemInBasket(basket?.items||[], itemToAdd);
+    }
+
+    console.log("Current2 basket value", basket);
     this.setBasket(basket!);
   }
 
   private addOrUpdateItemInBasket(items: IBasketItem[], itemToAdd: IBasketItem){
     console.log("before basket items", items);
     const index=items?.findIndex(i=> i.id === itemToAdd.id);
+    console.log("index found", index);
     if(index === -1){
       items?.push(itemToAdd);
     }
@@ -155,7 +163,10 @@ export class BasketService {
 
   private createBasket(): Basket | null {
     const basket= new Basket();
+    basket.items= [];
     localStorage.setItem("basket_id",basket.id);
+    console.log("New basket created", basket);
+    
     return basket;
   }
 

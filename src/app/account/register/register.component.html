@@ -1,0 +1,91 @@
+<main class="mt-4 form-signin w-100 m-auto d-flex justify-content-center">
+  <form class="col-3" [formGroup]="userRegsForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal text-center">Please sign up</h1>
+    <div class="form-floating mb-2">
+      <input
+        type="text"
+        class="form-control "
+        [class.is-invalid]="DisplayName?.invalid && DisplayName?.touched"
+        [class.is-valid]="DisplayName?.valid && DisplayName?.touched"
+        id="displayName"
+        placeholder="Display Name"
+        formControlName="displayName"
+      />
+      <label for="displayName">Display Name</label>
+      <div class="invalid-feedback" *ngIf="DisplayName?.invalid && DisplayName?.touched">
+        <span *ngIf="DisplayName?.errors?.['required']">Display Name is required</span>
+      </div>
+    </div>
+    <div class="form-floating mb-2">
+      <input
+        type="email"
+        class="form-control"
+        [class.is-invalid]="Email?.invalid && Email?.touched"
+        [class.is-valid]="Email?.valid && Email?.touched"
+        id="email"
+        placeholder="name@example.com"
+        formControlName="email"
+      />
+      <label for="email">Email address</label>
+      <div *ngIf="Email?.status==='PENDING'"><i class="fa-solid fa-spinner loader"></i></div>
+      <div class="invalid-feedback" *ngIf="Email?.invalid && Email?.touched">
+        <span *ngIf="Email?.errors?.['required']">Email is required</span>
+        <span *ngIf="Email?.errors?.['pattern']">
+          Email must be a valid format (e.g., user&#64;example.com).
+        </span>
+        <span *ngIf="Email?.errors?.['emailExists']">Email already exists</span>
+</div>
+    </div>
+    <div class="form-floating mb-2">
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="PhoneNumber?.invalid && PhoneNumber?.touched"
+        [class.is-valid]="PhoneNumber?.valid && PhoneNumber?.touched"
+        id="phoneNumber"
+        placeholder="Phone Number"
+        formControlName="phoneNumber"
+      />
+      <label for="phoneNumber">Phone Number</label>
+      <div class="invalid-feedback" *ngIf="PhoneNumber?.invalid && PhoneNumber?.touched">
+        <span *ngIf="PhoneNumber?.errors?.['required']">PhoneNumber is required</span>
+        <span *ngIf="PhoneNumber?.errors?.['pattern']">Enter a valid Egyptian mobile (010, 011, 012, or 015).</span>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        [class.is-invalid]="Password?.invalid && Password?.touched"
+        [class.is-valid]="Password?.valid && Password?.touched"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <label for="password">Password</label>
+      <div class="invalid-feedback" *ngIf="Password?.invalid && Password?.touched">
+        <span *ngIf="Password?.errors?.['required']">Password is required</span>
+        <span *ngIf="Password?.errors?.['pattern']">Password must be at least 6 characters with uppercase, lowercase, number, and special character.</span>
+      </div>
+    </div>
+    <button class="btn btn-primary w-100 py-2"  type="submit">Sign in</button>
+    <small class="text-body-secondary"
+            >{{ userRegsForm.value | json }} <br />{{ userRegsForm.valid }}
+            <br />{{ Email?.errors | json }} <br />{{
+              Password?.errors | json
+            }}
+            <br>
+            kkkk: {{Email?.status}}</small
+          >
+          <hr class="my-4" />
+          <button
+            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+            type="submit"
+          >
+            <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+              <use xlink:href="#google"></use>
+            </svg>
+            Sign up with Google
+          </button>
+  </form>
+</main>

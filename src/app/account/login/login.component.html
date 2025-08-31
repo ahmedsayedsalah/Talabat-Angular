@@ -1,0 +1,55 @@
+<main class="form-signin w-100 m-auto d-flex justify-content-center mt-5">
+  <form class="col-3" [formGroup]="userLoginForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-3 fw-normal text-center">Please sign in</h1>
+    <div class="form-floating mb-2">
+      <input
+        type="email"
+        class="form-control "
+        [class.is-invalid]="Email?.invalid && Email?.touched"
+        [class.is-valid]="Email?.valid && Email?.touched"
+        id="email"
+        placeholder="name@example.com"
+        formControlName="email"
+      />
+      <label for="email">Email address</label>
+      <div class="invalid-feedback" *ngIf="Email?.invalid && Email?.touched">
+        <span *ngIf="Email?.errors?.['required']">Email is required</span>
+        <span *ngIf="Email?.errors?.['pattern']">Email is invalid</span>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control "
+        [class.is-invalid]="Password?.invalid && Password?.touched"
+        [class.is-valid]="Password?.valid && Password?.touched"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <label for="password">Password</label>
+      <div class="invalid-feedback" *ngIf="Password?.invalid && Password?.touched">
+        <span *ngIf="Password?.errors?.['required']">Password is required</span>
+        <span *ngIf="Password?.errors?.['minlength']">Password must be at least 6 characters</span>
+      </div> 
+    </div>
+    <button class="btn btn-primary w-100 py-2" [disabled]="userLoginForm.invalid" type="submit">Sign in</button>
+    <small class="text-body-secondary"
+            >{{ userLoginForm.value | json }} <br />{{ userLoginForm.valid }}
+            <br />{{ Email?.errors | json }} <br />{{
+              Password?.errors | json
+            }}</small
+          >
+          <hr class="my-4" />
+          <button
+            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+            type="submit"
+          >
+            <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+              <use xlink:href="#google"></use>
+            </svg>
+            Sign up with Google
+          </button>
+  </form>
+</main>
+

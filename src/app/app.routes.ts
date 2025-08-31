@@ -5,6 +5,7 @@ import { ProductDetailsComponent } from './shop/product-details/product-details.
 import { TestErrorsComponent } from './test-errors/test-errors.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {path: "", component: HomeComponent,data: {Breadcrumb: "Home"}},
@@ -13,5 +14,7 @@ export const routes: Routes = [
     {path: "server-error", component: ServerErrorComponent},
     {path: "shop", loadChildren: ()=> import('./shop/shop.module').then(m=> m.ShopModule)},
     {path: "basket", loadChildren: ()=> import("./basket/basket.module").then(m=> m.BasketModule)},
+    {path: "checkout", loadChildren: ()=> import("./checkout/checkout.module").then(m=> m.CheckoutModule),canActivate: [authGuard]},
+    {path: "account",loadChildren: ()=> import("./account/account.module").then(m=> m.AccountModule)},
     {path: "**", redirectTo: "",pathMatch: "full"}
 ];

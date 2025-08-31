@@ -13,10 +13,7 @@ import { OrderTotalsComponent } from "../shared/copmonents/order-totals/order-to
   styleUrl: './basket.component.css'
 })
 export class BasketComponent implements OnInit {
-say() {
-console.log("Hello from BasketComponent");
 
-}
   basket$?: Observable<IBasket|null>;
  constructor(public basketService: BasketService) {
     
