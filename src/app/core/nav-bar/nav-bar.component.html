@@ -1,41 +1,95 @@
-<div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 mb-4 border-bottom fixed-top">
-    <a routerLink="" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-        <img data-testid="logo" src="images/logo.png" style="max-height: 70px;" alt="logo" class="logo" >
-    </a>
-    <nav class="d-flex mt-2 mt-md-0 text-uppercase" style="font-size: larger">
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" routerLink="/shop" routerLinkActive="active">Shop</a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" routerLink="/test-errors" routerLinkActive="active">Errors</a>
-    </nav>
-    <div class="d-flex align-items-center">
-        <a routerLink="/basket" style="position: relative;">
-            <i class="fa-solid fa-cart-shopping fa-2x me-4"></i>
-            <div *ngIf="(basket$|async) as basket" class="card-no">{{basket?.items?.length}}</div>
-        </a>
-        <ng-container *ngIf="(account$|async)===null">
-            <div routerLink="/account/login" class="btn btn-outline-secondary me-2">Login</div>
-        <div routerLink="/account/register" class="btn btn-outline-primary">Sign Up</div>
-        </ng-container>
-
-        <ng-container >
-            <a style="cursor: pointer;"></a>
-        </ng-container>
-
-        <!-- Example single danger button -->
-<div class="btn-group" *ngIf="(account$|async)">
-  <button type="button" class="btn btn-Secondary dropdown-toggle border-0" data-bs-toggle="dropdown" aria-expanded="false">
-    <strong>Welcome {{(account$|async)?.displayName}}</strong>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a routerLink="/basket" class="dropdown-item"><i class="fa-solid fa-cart-shopping me-2"></i> View Basket</a></li>
-    <li style="cursor: pointer;"><a class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history me-2" viewBox="0 0 16 16">
-  <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"/>
-  <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
-  <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
-</svg>  View Orders</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li style="cursor: pointer;" (click)="logout()"><a class="dropdown-item" >Logout</a></li>
-  </ul>
-</div>
+<header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between p-3 border-bottom"
+  >
+    <div class="col-md-3 fs-2 fw-bold mb-2 mb-md-0 text-primary">
+      Talabat
     </div>
-</div>
+    <ul class="nav col-12 col-md-auto text-uppercase fs-5 mb-2 justify-content-center mb-md-0">
+      <li>
+        <a class="nav-link px-2 link-secondary"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a>
+      </li>
+      <li>
+        <a class="nav-link px-2 link-secondary"
+        routerLink="/shop"
+        routerLinkActive="active"
+        >Shop</a>
+      </li>
+      <li>
+        <a class="nav-link px-2 link-secondary"
+        routerLink="/test-errors"
+        routerLinkActive="active"
+        >Errors</a>
+      </li>
+    </ul>
+    <div class="col-md-3 text-end">
+      <div class="d-flex align-items-center">
+    <a routerLink="/basket" style="position: relative">
+      <i style="color: black;" class="fa-solid fa-cart-shopping fa-2x me-4"></i>
+      <div *ngIf="basket$ | async as basket" class="card-no">
+        {{ basket?.items?.length }}
+      </div>
+    </a>
+    <ng-container *ngIf="(account$ | async) === null">
+      <div routerLink="/account/login" class="btn btn-outline-primary me-2">
+        Login
+      </div>
+      <div routerLink="/account/register" class="btn btn-primary">
+        Sign Up
+      </div>
+    </ng-container>
+
+    <ng-container>
+      <a style="cursor: pointer"></a>
+    </ng-container>
+
+    <div class="btn-group" *ngIf="account$ | async">
+      <button
+        type="button"
+        class="btn btn-Secondary dropdown-toggle border-0"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <strong>Welcome {{ (account$ | async)?.displayName }}</strong>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a routerLink="/basket" class="dropdown-item"
+            ><i class="fa-solid fa-cart-shopping me-2"></i> View Basket</a
+          >
+        </li>
+        <li style="cursor: pointer">
+          <a routerLink="/orders" class="dropdown-item"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-clock-history me-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"
+              />
+              <path
+                d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"
+              />
+              <path
+                d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"
+              />
+            </svg>
+            View Orders</a
+          >
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li style="cursor: pointer" (click)="logout()">
+          <a class="dropdown-item">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+    </div>
+</header>

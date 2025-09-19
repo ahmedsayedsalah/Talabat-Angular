@@ -5,10 +5,11 @@ import { IBasket, IBasketItem } from '../shared/models/basket';
 import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { OrderTotalsComponent } from "../shared/copmonents/order-totals/order-totals.component";
+import { BasketSummaryComponent } from "../shared/copmonents/basket-summary/basket-summary.component";
 
 @Component({
   selector: 'app-basket',
-  imports: [NgIf, NgFor, AsyncPipe, RouterLink, CurrencyPipe, OrderTotalsComponent],
+  imports: [NgIf, AsyncPipe, RouterLink, OrderTotalsComponent, BasketSummaryComponent],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.css'
 })

@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import { Basket, IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { IProduct } from '../shared/models/iproduct';
+import { IDeliveryMethod } from '../shared/models/idelivery-method';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketService {
-  baseUrl = "https://localhost:7114/api"; 
+  baseUrl = environment.apiUrl; 
   // basket!: EventEmitter<Basket>;
   basket= new BehaviorSubject<IBasket|null>(null);
   basket$ = this.basket.asObservable();
@@ -19,9 +21,28 @@ export class BasketService {
   constructor(private http:HttpClient) {
     const basketId= localStorage.getItem("basket_id");
     if(basketId) this.getBasket(basketId);
-   }
+  }
 
-  
+  createPaymentIntent()
+  {
+    return this.http.post<Basket>(`${this.baseUrl}/payments/${this.getCurrentBasketValue()?.id}`,{})
+      .pipe(map(basket=> {
+        this.basket.next(basket);
+        console.log("Payment intent created successfully"
+          , this.getCurrentBasketValue());
+      }));
+  }
+
+  setShippingCost(deliveryMethod: IDeliveryMethod)
+  {
+    const basket= this.getCurrentBasketValue()?? this.createBasket();
+    if(basket)
+    {
+    basket!.shippingCost= deliveryMethod.cost;
+    basket!.deliveryMethodId= deliveryMethod.id;
+    this.setBasket(basket);
+    }
+  }
 
   getBasket(id:string){
     return this.http.get<Basket>(`${this.baseUrl}/baskets?id=${id}`)
@@ -30,8 +51,6 @@ export class BasketService {
         next: basket=> {
           this.basket.next(basket);
           this.basketTotals.next(this.calculateTotals());
-          console.log("Basket fetched successfully", this.basket );
-          console.log("Basket fetched successfully", this.basket$ );
           
         },
       error: err=> console.error("Error fetching basket", err)
@@ -39,13 +58,12 @@ export class BasketService {
     );
   }
 
-   setBasket(basket: Basket){
+  setBasket(basket: Basket){
     return this.http.post<Basket>(`${this.baseUrl}/baskets`, basket)
     .subscribe({
       next: basket => {
           this.basket.next(basket);
           this.basketTotals.next(this.calculateTotals());
-          console.log("Basket Added successfully", basket );
         },
       error: err => console.error("Error setting basket", err)
     });
@@ -120,9 +138,10 @@ export class BasketService {
 
   calculateTotals(){
     const basket= this.getCurrentBasketValue();
-      const shipping=0;
+      const shipping=basket!.shippingCost;
       const subTotal= basket?.items?.reduce((a,b)=> (b.price*b.quantity)+a,0)?? 0;
       const total= subTotal + shipping;
+      console.log("calculateTotals shipping cost ", basket!.shippingCost);
       return {shipping, subTotal, total};
   }
 

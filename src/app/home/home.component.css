@@ -1,8 +1,147 @@
-img{
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
+
+.hero-section {
+  background-image: url('/images/banner.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  min-height: 600px;
+  position: relative;
+  
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
-.space{
-    margin-top: 105px;
+
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+.hero-title {
+  line-height: 1.2;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+
+.hero-brand {
+  color: #ff6b35 !important;
+}
+
+
+.hero-subtitle {
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+
+.hero-btn {
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  outline: none;
+}
+
+.hero-btn:focus,
+.hero-btn:active {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+
+.hero-stat-number {
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+
+.hero-stat-text {
+  color: white !important;
+  font-size: 0.875rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+
+.footer-section {
+  margin: 0;
+  width: 100%;
+}
+
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 80vh;
+    min-height: 500px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    height: 70vh;
+    min-height: 450px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-stat-number {
+    font-size: 1.8rem !important;
+  }
+  
+  .hero-stat-text {
+    font-size: 0.75rem;
+  }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .hero-section {
+    height: 600px; 
+  }
+}
+
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }

@@ -1,22 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { IUser } from '../shared/models/iuser';
-import { BehaviorSubject, map, pipe } from 'rxjs';
+import { map, Observable, ReplaySubject } from 'rxjs';
+import { IUserAddress } from '../shared/models/iuser-address';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl= "https://localhost:7114/api";
+  baseUrl= environment.apiUrl;
 
-  user= new BehaviorSubject<IUser|null>(null);
+  user= new ReplaySubject<IUser|null>(1);
   user$= this.user.asObservable();
   constructor(private http:HttpClient,
               private router:Router
   ) {
     const token= localStorage.getItem("token");
     if(token) this.getCurrentUser(token);
+  }
+
+  getUserToken():Observable<string>{
+    return this.user$.pipe(map(user=> user!.token));
   }
 
   login(values:any)
@@ -63,9 +69,7 @@ export class AccountService {
 
   getCurrentUser(token: string)
   {
-    var headers= new HttpHeaders();
-    headers=headers.set("Authorization",`Bearer ${token}`)
-    return this.http.get<IUser>(`${this.baseUrl}/accounts`,{headers})
+    return this.http.get<IUser>(`${this.baseUrl}/accounts`)
     .subscribe({
       next: user=> {
           this.user.next(user);
@@ -73,5 +77,16 @@ export class AccountService {
       },
       error: err=> console.error(err)
     });
+  }
+
+  getUserAddress()
+  {
+    return this.http.get<IUserAddress>(`${this.baseUrl}/accounts/address`);
+  }
+
+  updateUserAddress(address:IUserAddress)
+  {
+    return this.http.put<IUserAddress>(`${this.baseUrl}/accounts/address`,address);
+    
   }
 }

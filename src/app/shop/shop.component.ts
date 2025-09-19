@@ -54,7 +54,7 @@ export class ShopComponent implements OnInit {
         this.params.pageIndex = response.pageIndex;
         this.params.pageSize = response.pageSize;
          console.log(this.params);
-         console.log(response);
+         console.log("shop count: "+response.count);
       },
       error: err => {
         console.error("Error fetching products", err);

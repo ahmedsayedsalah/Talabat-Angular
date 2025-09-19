@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BasketService } from '../../../basket/basket.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IBasketTotals } from '../../models/basket';
 import { AsyncPipe, CurrencyPipe, NgIf } from '@angular/common';
 
@@ -12,10 +12,31 @@ import { AsyncPipe, CurrencyPipe, NgIf } from '@angular/common';
 })
 export class OrderTotalsComponent {
   bsketTotals$?: Observable<IBasketTotals|null>;
+  @Input() subTotal?: number;
+  @Input() shipping?: number;
+  @Input() total?: number;
  constructor(private basketService: BasketService){
-
+  console.log("constructor: ");
+  
+    console.log("subTotal "+this.subTotal);
+    console.log("shipping "+this.shipping);
+    console.log("total "+this.total);
+    
  }
   ngOnInit(): void {
+    console.log("init: ");
+    console.log("subTotal "+this.subTotal);
+    console.log("shipping "+this.shipping);
+    console.log("total "+this.total);
+      if (this.subTotal !== undefined || this.shipping !== undefined || this.total !== undefined) {
+      const totals: IBasketTotals = {
+        subTotal: this.subTotal || 0,
+        shipping: this.shipping || 0,
+        total: this.total || 0
+      };
+      this.bsketTotals$ = of(totals);
+    } else {
       this.bsketTotals$= this.basketService.basketTotals$;
+    }
   }
 }
