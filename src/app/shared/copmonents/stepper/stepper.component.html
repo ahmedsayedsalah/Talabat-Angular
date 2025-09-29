@@ -4,7 +4,7 @@
       <div class="d-grid">
         <button
           (click)="onClick(i)"
-          [disabled]="linear && i > selectedIndex"
+          [disabled]="true"
           [class.active]="selectedIndex === i"
           class="nav-link py-3 text-uppercase fw-bold">
           {{ step.label }} <svg *ngIf="step.completed" style="color: green;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ms-2 bi bi-check-circle-fill" viewBox="0 0 16 16">

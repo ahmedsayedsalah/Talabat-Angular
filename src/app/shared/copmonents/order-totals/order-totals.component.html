@@ -1,26 +1,42 @@
-<div *ngIf="(bsketTotals$|async)">
-    <div class=" bg-light py-4 px-3 text-uppercase font-weight-bold">
+<!-- order-totals.component.html -->
+<div *ngIf="(basketTotals$|async)" class="order-totals">
+  <!-- Header -->
+  <div class="order-totals-header">
     Order Summary
-</div>
-<ul *ngIf="(bsketTotals$|async) as bsketTotals" class="p-4 list-group">
-    <p class="text-italic mb-4">Shipping costs will be added depending on choices made during checkout</p>
-    <li class="list-unstyled border-bottom py-3">
-        <div class="d-flex justify-content-between">
-            <strong>Subtotal</strong>
-            <strong>{{bsketTotals.subTotal| currency}}</strong>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="(basketTotals$|async) as basketTotals" class="order-totals-content">
+    <!-- Shipping notice -->
+    <p class="shipping-notice">
+      Shipping costs will be added depending on choices made during checkout
+    </p>
+
+    <!-- Totals list -->
+    <div class="totals-list">
+      <!-- Subtotal -->
+      <div class="total-item">
+        <div class="total-item-content">
+          <strong class="total-label">Subtotal</strong>
+          <strong class="total-amount">{{basketTotals.subTotal | currency}}</strong>
         </div>
-    </li>
-    <li class="list-unstyled border-bottom py-3">
-        <div class="d-flex justify-content-between">
-            <strong>Shipping</strong>
-            <strong>{{bsketTotals.shipping| currency}}</strong>
+      </div>
+
+      <!-- Shipping -->
+      <div class="total-item">
+        <div class="total-item-content">
+          <strong class="total-label">Shipping</strong>
+          <strong class="total-amount">{{basketTotals.shipping | currency}}</strong>
         </div>
-    </li>
-    <li class="list-unstyled pt-3">
-        <div class="d-flex justify-content-between">
-            <strong>Total</strong>
-            <strong>{{bsketTotals.total| currency}}</strong>
+      </div>
+
+      <!-- Total -->
+      <div class="total-item final-total">
+        <div class="total-item-content">
+          <strong class="total-label">Total</strong>
+          <strong class="total-amount">{{basketTotals.total | currency}}</strong>
         </div>
-    </li>
-</ul>
+      </div>
+    </div>
+  </div>
 </div>

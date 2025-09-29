@@ -4,7 +4,7 @@ import { IPagination } from '../shared/models/ipagination';
 import { IBrand } from '../shared/models/ibrand';
 import { map } from 'rxjs/operators';
 import { IProductType } from '../shared/models/iproduct-type';
-import { ShopParams } from '../shared/models/ٍShopParams';
+import { ShopParams } from '../shared/models/ٍshop-params';
 import { IProduct } from '../shared/models/iproduct';
 import { environment } from '../../environments/environment.development';
 
@@ -26,13 +26,13 @@ export class ShopService {
     params= params.append("pageIndex",shopParams.pageIndex.toString());
     if(shopParams.pageSize !== 0)
       params= params.append("pageSize",shopParams.pageSize.toString());
-if(shopParams.search)
+    if(shopParams.search)
       params= params.append("search",shopParams.search.toString());
 
       params= params.append("sort",shopParams.sort.toString());
       
 
-    return this.httpClient.get<IPagination>(`${this.baseUrl}/Products`
+    return this.httpClient.get<IPagination<IProduct>>(`${this.baseUrl}/Products`
       ,{params});
   }
 

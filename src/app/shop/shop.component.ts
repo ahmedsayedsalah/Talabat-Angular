@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgModule, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ShopService } from './shop.service';
 import { IProduct } from '../shared/models/iproduct';
 import { CommonModule, NgIf } from '@angular/common';
@@ -7,16 +7,17 @@ import { ProductItemComponent } from "./product-item/product-item.component";
 import { IProductType } from '../shared/models/iproduct-type';
 import { IBrand } from '../shared/models/ibrand';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { ShopParams } from '../shared/models/ٍShopParams';
+import { ShopParams } from '../shared/models/ٍshop-params';
 import { PagingHeaderComponent } from "../shared/copmonents/paging-header/paging-header.component";
 import { PagerComponent } from "../shared/copmonents/pager/pager.component";
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @Component({
 
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, ProductItemComponent,
+  imports: [CommonModule, ProductItemComponent,NgSelectModule,
     FormsModule, PaginationModule, NgIf, PagingHeaderComponent, PagerComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'

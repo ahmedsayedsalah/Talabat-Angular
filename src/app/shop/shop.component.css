@@ -1,0 +1,319 @@
+/* shop.component.css */
+
+/* General Layout */
+.container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Mobile Filter Toggle */
+.btn[data-bs-toggle="collapse"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn[data-bs-toggle="collapse"]:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn[data-bs-toggle="collapse"]:hover:before {
+  left: 100%;
+}
+
+/* Filter Sections Styling */
+.list-group-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px !important;
+  margin-bottom: 2px;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+  transform: translateX(5px);
+}
+
+.list-group-item.active {
+  background-color: #ff6b35 !important;
+  border-color: #ff6b35 !important;
+  color: white !important;
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+  padding-left: 15px !important;
+}
+
+/* Mobile Filter Items */
+.brands-container,
+.types-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brand-item,
+.type-item {
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.brand-item:hover,
+.type-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.brand-item.active,
+.type-item.active {
+  background-color: #ff6b35;
+  border-color: #ff6b35;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+}
+
+.input-group {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.input-group .form-control {
+  border: none;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+}
+
+.input-group .form-control:focus {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.input-group .btn {
+  border: none;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+
+.input-group .btn-outline-primary {
+  background-color: #ff6b35;
+  border-color: #ff6b35;
+  color: white;
+}
+
+.input-group .btn-outline-primary:hover {
+  background-color: #e55a2b;
+  border-color: #e55a2b;
+  transform: translateY(-1px);
+}
+
+.input-group .btn-outline-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.input-group .btn-outline-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-1px);
+}
+
+/* Products Grid */
+.products-grid {
+  min-height: 400px;
+}
+
+/* Empty State Styling */
+.text-center.py-5 {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.text-center.py-5 .fa-search {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Form Select Styling */
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+}
+
+/* Section Headers */
+h6.text-warning {
+  color: #ff6b35 !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+/* ng-select Styling */
+::ng-deep .ng-select {
+  border-radius: 10px;
+}
+
+::ng-deep .ng-select .ng-select-container {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  min-height: 45px;
+  background-color: white;
+}
+
+::ng-deep .ng-select.ng-select-focused .ng-select-container {
+  border-color: #ff6634;
+  box-shadow: 0 0 0 0.2rem rgba(255, 102, 52, 0.15);
+}
+
+::ng-deep .ng-select .ng-select-container:hover {
+  border-color: #ff8c52;
+}
+
+::ng-deep .ng-dropdown-panel {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+  background-color: #ff6634;
+  color: white;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+  background-color: #fff5f2;
+  color: #ff6634;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected:hover {
+  background-color: #ff8c52;
+  color: white;
+}
+
+/* Card Styling for Mobile Filters */
+.card {
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+  .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+
+  .input-group .btn span {
+    display: none !important;
+  }
+  
+  .input-group .btn {
+    padding: 12px;
+  }
+  
+  h6.text-warning {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .products-grid .row {
+    --bs-gutter-x: 0.75rem;
+    --bs-gutter-y: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .row.row-cols-lg-3 {
+    --bs-columns: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .products-grid .row {
+    --bs-gutter-x: 2rem;
+    --bs-gutter-y: 2rem;
+  }
+}
+
+/* Loading Animation */
+.products-grid.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.products-grid.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ff6b35;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth Transitions */
+* {
+  scroll-behavior: smooth;
+}
+
+.col {
+  transition: transform 0.3s ease;
+}
+
+.col:hover {
+  transform: translateY(-5px);
+}

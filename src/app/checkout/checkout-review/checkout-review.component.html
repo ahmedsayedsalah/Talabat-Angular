@@ -1,12 +1,19 @@
-<app-basket-summary [isBasket]=false></app-basket-summary>
+<div class="review-container">
+    <div class="form-header">
+        <h3 class="form-title">Order Review</h3>
+        <p class="form-subtitle">Please review your order before proceeding to payment</p>
+    </div>
 
-<div class="d-flex justify-content-between flex-row mt-4">
-        <button class="btn btn-outline-primary" cdkStepperPrevious>
-            <i class="me-2 fa-solid fa-arrow-left"></i> Go to Delivery
+    <div class="review-content">
+        <app-basket-summary [isBasket]=false></app-basket-summary>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-outline-custom" cdkStepperPrevious>
+            <i class="me-2 fa-solid fa-arrow-left"></i> Back to Delivery
         </button>
-
-        <button class="btn btn-primary" (click)="createPaymentIntent()">
-            Go to Payment<i class="ms-2 fa-solid fa-arrow-right"></i>
+        <button class="btn btn-primary-custom" (click)="createPaymentIntent()">
+            Proceed to Payment <i class="ms-2 fa-solid fa-arrow-right"></i>
         </button>
-
+    </div>
 </div>

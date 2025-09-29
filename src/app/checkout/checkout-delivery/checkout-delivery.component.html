@@ -1,40 +1,44 @@
-<div class="row mt-5" [formGroup]="checkoutForm">
-<div class="row" formGroupName="deliveryForm">
-  <h3 class="mb-3">Choose Your Delivery Method</h3>
-<div class="col-6" *ngFor="let dm of deliveryMethods">
-        <!-- <div class="form-floating mb-3">
-            <select class="form-select" id="deliveryMethod" formControlName="deliveryMethod">
-                <option value="">Select Delivery Method</option>
-                <option *ngFor="let d of deliveryMethods" [value]="d.id">{{d.description}} - {{d.cost | currency}}</option>
-              </select>
-              <label for="deliveryMethod">Delivery Method</label>
-        </div> -->
-        <div class="form-check mb-3" >
-  <input class="form-check-input" type="radio"
-  (change)="setShippingCost(dm)"
-   id="{{dm.id}}" value="{{dm.id}}" 
-   formControlName="deliveryMethod">
-  <label class="form-check-label" for="{{dm.id}}">
-    <strong class="text-uppercase">{{dm.shortName}} - {{dm.cost | currency}}</strong>
-    <br> <span class="ms-2 label-description">{{dm.description}}</span>
-  </label>
-</div>
+<div class="delivery-container" [formGroup]="checkoutForm">
+    <div class="form-header">
+        <h3 class="form-title">Choose Delivery Method</h3>
+        <p class="form-subtitle">Select your preferred shipping option</p>
     </div>
-    <!-- <div class="d-flex mt-4 align-items-center justify-content-end">
-            <button class="btn btn-outline-secondary w-25" [disabled]="checkoutForm!.get('deliveryForm')?.invalid">
-                Save <i class="ms-2 fa-solid fa-arrow-right"></i>
-            </button>
-        </div> -->
-</div>
-</div>
-
-<div class="d-flex justify-content-between flex-row mt-4">
-        <button class="btn btn-outline-primary" cdkStepperPrevious>
-            <i class="me-2 fa-solid fa-arrow-left"></i> Go to Address
+    <div class="delivery-methods" formGroupName="deliveryForm">
+        <div class="delivery-option" *ngFor="let dm of deliveryMethods">
+            <input
+                class="delivery-radio"
+                type="radio"
+                (change)="setShippingCost(dm)"
+                id="{{dm.id}}"
+                value="{{dm.id}}"
+                formControlName="deliveryMethod">
+            <div class="delivery-card" [class.selected]="checkoutForm.get('deliveryForm.deliveryMethod')?.value == dm.id">
+                <label class="delivery-label" for="{{dm.id}}">
+                    <div class="delivery-header">
+                        <div class="delivery-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="delivery-info">
+                            <h4 class="delivery-name">{{dm.shortName}}</h4>
+                            <div class="delivery-price">{{dm.cost | currency}}</div>
+                        </div>
+                        <div class="delivery-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <div class="delivery-description">
+                        {{dm.description}}
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button class="btn btn-outline-custom" cdkStepperPrevious>
+            <i class="me-2 fa-solid fa-arrow-left"></i> Back to Address
         </button>
-
-        <button class="btn btn-primary" cdkStepperNext>
-            Go to Review<i class="ms-2 fa-solid fa-arrow-right"></i>
+        <button class="btn btn-primary-custom" cdkStepperNext>
+            Continue to Review <i class="ms-2 fa-solid fa-arrow-right"></i>
         </button>
-
+    </div>
 </div>

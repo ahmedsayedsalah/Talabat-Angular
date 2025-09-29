@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ShopService } from '../shop/shop.service';
-import { ShopParams } from '../shared/models/ٍShopParams';
+import { ShopParams } from '../shared/models/ٍshop-params';
 
 @Component({
   selector: 'app-home',

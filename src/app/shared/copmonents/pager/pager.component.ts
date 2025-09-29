@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ShopParams } from '../../models/ٍShopParams';
+import { ShopParams } from '../../models/ٍshop-params';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { IPaginationParams } from '../../models/ipagination-params';
 
 @Component({
   selector: 'app-pager',
@@ -9,7 +10,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
   styleUrl: './pager.component.css'
 })
 export class PagerComponent {
-@Input() params!:ShopParams;
+@Input() params!:IPaginationParams;
 @Output() pageChanged=new EventEmitter<number>();
 
 onPageChanged(ev:any)

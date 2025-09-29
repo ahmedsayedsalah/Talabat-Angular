@@ -1,81 +1,117 @@
-<div [formGroup]="checkoutForm">
-    <div formGroupName="addressForm" class="row">
-         <div class="col-6 mb-3">
-            <div class="form-floating">
-            <input type="text" class="form-control" id="fName"
-            [class.is-invalid]="FName?.invalid && FName?.touched"
-        [class.is-valid]="FName?.valid && FName?.touched"
-            formControlName="fName">
-            <label for="fName">First Name</label>
-            <div class="invalid-feedback" *ngIf="FName?.invalid && FName?.touched">
-        <span *ngIf="FName?.errors?.['required']">First Name is required</span>
-      </div>
-         </div>
-        </div>
-         <div class="col-6 mb-3">
-         <div class="form-floating ">
-           <input type="text" class="form-control" id="lName"
-           [class.is-invalid]="LName?.invalid && LName?.touched"
-        [class.is-valid]="LName?.valid && LName?.touched"
-           formControlName="lName">
-           <label for="lName">Last Name</label>
-           <div class="invalid-feedback" *ngIf="LName?.invalid && LName?.touched">
-        <span *ngIf="LName?.errors?.['required']">Last Name is required</span>
-      </div>
-         </div>
-         </div>
-         <div class="col-6 mb-3">           
-             <div class="form-floating">
-             <input type="text" class="form-control" id="street" 
-             [class.is-invalid]="Street?.invalid && Street?.touched"
-        [class.is-valid]="Street?.valid && Street?.touched"
-             formControlName="street">
-             <label for="street">Street</label>
-             <div class="invalid-feedback" *ngIf="Street?.invalid && Street?.touched">
-        <span *ngIf="Street?.errors?.['required']">Street is required</span>
-      </div>
-           </div>
-        </div>
-        <div class="col-6 mb-3">
-             <div class="form-floating">
-            <input type="text" class="form-control" id="city"
-            [class.is-invalid]="City?.invalid && City?.touched"
-        [class.is-valid]="City?.valid && City?.touched"
-            formControlName="city">
-            <label for="city">City</label>
-            <div class="invalid-feedback" *ngIf="City?.invalid && City?.touched">
-        <span *ngIf="City?.errors?.['required']">City is required</span>
-      </div>
+<div class="address-form-container" [formGroup]="checkoutForm">
+    <div class="form-header">
+        <h3 class="form-title">Shipping Address</h3>
+        <p class="form-subtitle">Please provide your shipping details</p>
+    </div>
+
+    <div formGroupName="addressForm" class="address-form">
+        <div class="form-row">
+            <div class="form-group">
+                <div class="form-floating">
+                    <input 
+                        type="text" 
+                        class="form-control modern-input" 
+                        id="fName"
+                        [class.is-invalid]="FName?.invalid && FName?.touched"
+                        [class.is-valid]="FName?.valid && FName?.touched"
+                        formControlName="fName"
+                        placeholder="First Name">
+                    <label for="fName">First Name</label>
+                    <div class="invalid-feedback" *ngIf="FName?.invalid && FName?.touched">
+                        <span *ngIf="FName?.errors?.['required']">First Name is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="form-floating">
+                    <input 
+                        type="text" 
+                        class="form-control modern-input" 
+                        id="lName"
+                        [class.is-invalid]="LName?.invalid && LName?.touched"
+                        [class.is-valid]="LName?.valid && LName?.touched"
+                        formControlName="lName"
+                        placeholder="Last Name">
+                    <label for="lName">Last Name</label>
+                    <div class="invalid-feedback" *ngIf="LName?.invalid && LName?.touched">
+                        <span *ngIf="LName?.errors?.['required']">Last Name is required</span>
+                    </div>
+                </div>
             </div>
         </div>
-         <div class="col-6 mb-3">
+
+        <div class="form-row">
+            <div class="form-group">
                 <div class="form-floating">
-                <input type="text" class="form-control" id="country"
-                [class.is-invalid]="Country?.invalid && Country?.touched"
-        [class.is-valid]="Country?.valid && Country?.touched"
-                formControlName="country">
-                <label for="country">Country</label>
-                <div class="invalid-feedback" *ngIf="Country?.invalid && Country?.touched">
-        <span *ngIf="Country?.errors?.['required']">Country is required</span>
-      </div>
-              </div>
+                    <input 
+                        type="text" 
+                        class="form-control modern-input" 
+                        id="street"
+                        [class.is-invalid]="Street?.invalid && Street?.touched"
+                        [class.is-valid]="Street?.valid && Street?.touched"
+                        formControlName="street"
+                        placeholder="Street Address">
+                    <label for="street">Street Address</label>
+                    <div class="invalid-feedback" *ngIf="Street?.invalid && Street?.touched">
+                        <span *ngIf="Street?.errors?.['required']">Street is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="form-floating">
+                    <input 
+                        type="text" 
+                        class="form-control modern-input" 
+                        id="city"
+                        [class.is-invalid]="City?.invalid && City?.touched"
+                        [class.is-valid]="City?.valid && City?.touched"
+                        formControlName="city"
+                        placeholder="City">
+                    <label for="city">City</label>
+                    <div class="invalid-feedback" *ngIf="City?.invalid && City?.touched">
+                        <span *ngIf="City?.errors?.['required']">City is required</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-6 d-flex align-items-center justify-content-center">
-            <button class="btn btn-outline-primary py-2 w-50"
-            (click)="saveUserAddress()"
-             [disabled]="checkoutForm!.get('addressForm')?.dirty || checkoutForm!.get('addressForm')?.invalid">
-             Save </button>
-        </div>
-        </div>
-</div>
 
-<div class="d-flex justify-content-between flex-row mt-4">
-        <button class="btn btn-outline-primary" routerLink="/basket">
-            <i class="me-2 fa-solid fa-arrow-left"></i> Go to basket
+        <div class="form-row">
+            <div class="form-group">
+                <div class="form-floating">
+                    <input 
+                        type="text" 
+                        class="form-control modern-input" 
+                        id="country"
+                        [class.is-invalid]="Country?.invalid && Country?.touched"
+                        [class.is-valid]="Country?.valid && Country?.touched"
+                        formControlName="country"
+                        placeholder="Country">
+                    <label for="country">Country</label>
+                    <div class="invalid-feedback" *ngIf="Country?.invalid && Country?.touched">
+                        <span *ngIf="Country?.errors?.['required']">Country is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group save-btn-container">
+                <button 
+                    class="btn btn-save-address"
+                    (click)="saveUserAddress()"
+                    [disabled]="!checkoutForm!.get('addressForm')?.dirty || checkoutForm!.get('addressForm')?.invalid">
+                    <i class="fas fa-save me-2"></i>Save Address
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-outline-custom" routerLink="/basket">
+            <i class="me-2 fa-solid fa-arrow-left"></i> Back to Basket
         </button>
-
-        <button class="btn btn-primary" cdkStepperNext>
-            Go to delivery<i class="ms-2 fa-solid fa-arrow-right"></i>
+        <button class="btn btn-primary-custom" cdkStepperNext>
+            Continue to Delivery <i class="ms-2 fa-solid fa-arrow-right"></i>
         </button>
-
+    </div>
 </div>

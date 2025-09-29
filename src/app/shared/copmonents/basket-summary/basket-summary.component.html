@@ -1,38 +1,81 @@
-<h3 *ngIf="(basket$|async) == null">there are not any items inside this basket</h3>
+<!-- basket-summary.component.html -->
+<div class="basket-summary">
+  <!-- Empty basket message -->
+  <div *ngIf="(basket$|async) == null" class="empty-basket-message">
+    <h3>There are no items in your basket</h3>
+  </div>
 
-<table *ngIf="(basket$|async)" class="table">
-  <thead>
-    <tr class="table-active" [class.table-dark]="!isBasket">
-      <th scope="col">Product</th>
-      <th scope="col">Price</th>
-      <th [class.text-center]="!isBasket" scope="col" >Quantity</th>
-      <th scope="col">Total</th>
-      <th *ngIf="isBasket" class="text-center" scope="col" >Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of (basket$|async)?.items">
-      <td>
-        <div class="d-inline-block">
-            <img [src]="item.pictureUrl" class="img-fluid" [alt]="item.productName" style="width: 100px;">
-            <div class="d-inline-block ms-3 align-middle">
-                <h5>
-                    <a style="text-decoration: none;"routerLink="/shop/{{item.id}}" routerLinkActive="router-link-active"  class="text-uppercase text-dark mb-3">{{item.productName}}</a>
+  <!-- Basket items table -->
+  <div *ngIf="(basket$|async)" class="basket-table-container">
+    <table class="basket-table">
+      <thead class="basket-table-header" [class.checkout-header]="!isBasket">
+        <tr>
+          <th class="product-column">Product</th>
+          <th class="price-column">Price</th>
+          <th class="quantity-column" [class.text-center]="!isBasket">Quantity</th>
+          <th class="total-column">Total</th>
+          <th *ngIf="isBasket" class="remove-column">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of (basket$|async)?.items" class="basket-item-row">
+          <!-- Product column -->
+          <td class="product-cell">
+            <div class="product-info">
+              <div class="product-image-container">
+                <img [src]="item.pictureUrl" 
+                     [alt]="item.productName" 
+                     class="product-image">
+              </div>
+              <div class="product-details">
+                <h5 class="product-name">
+                  <a [routerLink]="'/shop/' + item.id" 
+                     class="product-link">
+                    {{item.productName}}
+                  </a>
                 </h5>
-                <p class="text-muted">Type: {{item.type}}</p>
+                <p class="product-type">Type: {{item.type}}</p>
+              </div>
             </div>
-        </div>
-      </td>
-      <td class="align-middle">
-        <span style="font-size: 1.25rem;">{{item.price|currency}}</span>
-      </td>
-      <td class="align-middle" [class.text-center]="!isBasket">
-        <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa-solid fa-circle-minus text-warning me-2" style="cursor: pointer;font-size: 1.5rem;"></i>
-        <span style="font-size: 1.5rem;">{{item.quantity}}</span>
-        <i *ngIf="isBasket" (click)="incrementItemQuantity(item)" class="fa-solid fa-circle-plus text-warning ms-2" style="cursor: pointer;font-size: 1.5rem;"></i>
-      </td>
-      <td class="align-middle"><span style="font-size: 1.25rem;">{{item.quantity*item.price | currency}}</span></td>
-      <td *ngIf="isBasket" class="text-center align-middle"><a class="text-danger"><i (click)="removeItemFromBasket(item)" class="fa-solid fa-trash fs-2" style="cursor: pointer;"></i></a></td>
-    </tr>
-  </tbody>
-</table>
+          </td>
+
+          <!-- Price column -->
+          <td class="price-cell">
+            <span class="price-value">{{item.price | currency}}</span>
+          </td>
+
+          <!-- Quantity column -->
+          <td class="quantity-cell" [class.text-center]="!isBasket">
+            <div class="quantity-controls">
+              <i *ngIf="isBasket" 
+                 (click)="decrementItemQuantity(item)" 
+                 class="quantity-btn quantity-decrease"
+                 aria-label="Decrease quantity">
+              </i>
+              <span class="quantity-value">{{item.quantity}}</span>
+              <i *ngIf="isBasket" 
+                 (click)="incrementItemQuantity(item)" 
+                 class="quantity-btn quantity-increase"
+                 aria-label="Increase quantity">
+              </i>
+            </div>
+          </td>
+
+          <!-- Total column -->
+          <td class="total-cell">
+            <span class="total-value">{{item.quantity * item.price | currency}}</span>
+          </td>
+
+          <!-- Remove column -->
+          <td *ngIf="isBasket" class="remove-cell">
+            <button (click)="removeItemFromBasket(item)" 
+                    class="remove-btn"
+                    aria-label="Remove item">
+              <i class="remove-icon"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

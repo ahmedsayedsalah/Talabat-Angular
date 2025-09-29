@@ -1,51 +1,187 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4">
+  <!-- Mobile Filter Toggle Button -->
+  <div class="d-lg-none mb-3">
+    <button class="btn btn-outline-primary w-100" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#mobileFilters" 
+            aria-expanded="false" 
+            aria-controls="mobileFilters">
+      <i class="fas fa-filter me-2"></i>Show Filters
+    </button>
+  </div>
+
   <div class="row">
-    <section class="col-3">
-     
-        <ng-container *ngIf="brands && types">
-          <div class="text-warning ms-3">Sort</div>
-      <select class="custom-select w-100 my-2" style="height: 35px;"
-      [(ngModel)]="params.sort" (change)="onSelectSort(params.sort)">
-        <option *ngFor="let item of sortOptions" [value]="item.value">{{item.name}}</option>
-      </select>
-     
-      <div class="text-warning ms-3">Brands</div>
-      <ul class="list-group my-3">
-        <li class="list-group-item"
-        *ngFor="let item of brands"
-        [class.active]="item.id === params.brandId"
-        (click)="onSelectBrand(item.id)"
-        >{{item.name}}</li>
-      </ul>
-        </ng-container>
-      <div class="text-warning ms-3">Types</div>
-      <ul class="list-group my-3">
-        <li class="list-group-item" *ngFor="let item of types"
-        [class.active]="item.id === params.typeId"
-        (click)="onSelectType(item.id)">
-        {{item.name}}</li>
-      </ul>
-    </section>
-    <section class="col-9">
-     
-            <div class="d-flex justify-content-between align-items-center mb-3">
-               
-              <app-paging-header [params]="params"></app-paging-header>
-           
-                <div class="form-inline d-flex" *ngIf="products">
-                     <input (keyup)="onSerach()" #search type="text" class="form-control me-2" placeholder="Search" style="width: 300px;">
-                     <button (click)="onSerach()" class="btn btn-outline-primary mx-2">Search</button>
-                     <button (click)="onReset()" class="btn btn-outline-success mx-2">Reset</button>
+    <!-- Filters Sidebar -->
+    <section class="col-lg-3 col-md-4">
+      <!-- Mobile Collapsible Filters -->
+      <div class="collapse d-lg-block" id="mobileFilters">
+        <div class="card border-0 shadow-sm mb-3 d-lg-none">
+          <div class="card-body">
+            <ng-container *ngIf="brands && types">
+              <!-- Sort Section -->
+              <div class="mb-4">
+                <h6 class="text-warning fw-bold mb-3">
+                  <i class="fas fa-sort me-2"></i>Sort
+                </h6>
+                <select class="form-select" 
+                        [(ngModel)]="params.sort" 
+                        (change)="onSelectSort(params.sort)">
+                  <option *ngFor="let item of sortOptions" [value]="item.value">
+                    {{item.name}}
+                  </option>
+                </select>
+              </div>
+
+              <!-- Brands Section -->
+              <div class="mb-4">
+                <h6 class="text-warning fw-bold mb-3">
+                  <i class="fas fa-tags me-2"></i>Brands
+                </h6>
+                <div class="brands-container">
+                  <div class="brand-item" 
+                       *ngFor="let item of brands"
+                       [class.active]="item.id === params.brandId"
+                       (click)="onSelectBrand(item.id)">
+                    {{item.name}}
+                  </div>
                 </div>
+              </div>
+            </ng-container>
+
+            <!-- Types Section -->
+            <div class="mb-4">
+              <h6 class="text-warning fw-bold mb-3">
+                <i class="fas fa-list me-2"></i>Types
+              </h6>
+              <div class="types-container">
+                <div class="type-item" 
+                     *ngFor="let item of types"
+                     [class.active]="item.id === params.typeId"
+                     (click)="onSelectType(item.id)">
+                  {{item.name}}
+                </div>
+              </div>
             </div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" *ngFor="let item of products">
-          <app-product-item [product]="item"></app-product-item>
+          </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center mt-4"
-      *ngIf="params.count>params.pageSize">
-            <app-pager [params]="params" (pageChanged)="onPageChanged($event)"></app-pager>
+
+      <!-- Desktop Filters -->
+      <div class="d-none d-lg-block">
+        <ng-container *ngIf="brands && types">
+          <!-- Sort Section -->
+          <div class="mb-4">
+            <h6 class="text-warning fw-bold mb-3">
+              <i class="fas fa-sort me-2"></i>Sort
+            </h6>
+            <!-- <select class="form-select" 
+                    [(ngModel)]="params.sort" 
+                    (change)="onSelectSort(params.sort)">
+              <option *ngFor="let item of sortOptions" [value]="item.value">
+                {{item.name}}
+              </option>
+            </select> -->
+            <ng-select [items]="sortOptions"
+           bindLabel="name"
+           bindValue="value"
+           [(ngModel)]="params.sort"
+           (change)="onSelectSort(params.sort)">
+</ng-select>
+          </div>
+
+          <!-- Brands Section -->
+          <div class="mb-4">
+            <h6 class="text-warning fw-bold mb-3">
+              <i class="fas fa-tags me-2"></i>Brands
+            </h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-0 px-0 py-2" 
+                  *ngFor="let item of brands"
+                  [class.active]="item.id === params.brandId"
+                  (click)="onSelectBrand(item.id)"
+                  role="button">
+                {{item.name}}
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+
+        <!-- Types Section -->
+        <div class="mb-4">
+          <h6 class="text-warning fw-bold mb-3">
+            <i class="fas fa-list me-2"></i>Types
+          </h6>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item border-0 px-0 py-2" 
+                *ngFor="let item of types"
+                [class.active]="item.id === params.typeId"
+                (click)="onSelectType(item.id)"
+                role="button">
+              {{item.name}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="col-lg-9 col-md-8">
+      <!-- Header with Search -->
+      <div class="row align-items-center mb-4">
+        <!-- Paging Header -->
+        <div class="col-12 col-md-6 mb-3 mb-md-0">
+          <app-paging-header [params]="params"></app-paging-header>
+        </div>
+
+        <!-- Search Section -->
+        <div class="col-12 col-md-6" *ngIf="products">
+          <div class="search-container">
+            <div class="input-group">
+              <input #search 
+                     type="text" 
+                     class="form-control" 
+                     placeholder="Search products...">
+              <button (click)="onSerach()" 
+                      class="btn btn-outline-primary" 
+                      type="button">
+                <i class="fas fa-search"></i>
+                <span class="d-none d-sm-inline ms-1">Search</span>
+              </button>
+              <button (click)="onReset()" 
+                      class="btn btn-outline-success" 
+                      type="button">
+                <i class="fas fa-redo"></i>
+                <span class="d-none d-sm-inline ms-1">Reset</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 g-md-4">
+          <div class="col" *ngFor="let item of products">
+            <app-product-item [product]="item"></app-product-item>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center mt-5"
+           *ngIf="params.count > params.pageSize">
+        <app-pager [params]="params" (pageChanged)="onPageChanged($event)"></app-pager>
+      </div>
+
+      <!-- Empty State -->
+      <div class="text-center py-5" *ngIf="products && products.length === 0">
+        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">No products found</h4>
+        <p class="text-muted">Try adjusting your search or filter criteria</p>
+        <button (click)="onReset()" class="btn btn-primary">
+          <i class="fas fa-redo me-2"></i>Clear Filters
+        </button>
       </div>
     </section>
   </div>

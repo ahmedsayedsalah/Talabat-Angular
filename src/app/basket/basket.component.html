@@ -1,23 +1,23 @@
-<div class="container mt-4 mb-5">
+<!-- basket.component.html -->
+<div class="basket-container">
+  <div class="basket-content">
+    <!-- Basket Summary Section -->
+    <div class="basket-summary-section">
+      <app-basket-summary
+        (increment)="incrementItemQuantity($event)"
+        (decrement)="decrementItemQuantity($event)"
+        (remove)="removeItemFromBasket($event)">
+      </app-basket-summary>
+    </div>
     
-  <div class="row">
-    
-    
-    <app-basket-summary
-    (increment)="incrementItemQuantity($event)"
-    (decrement)="decrementItemQuantity($event)"
-    (remove)="removeItemFromBasket($event)">
-    </app-basket-summary>
-  </div>
-
-  <div class="row">
-    <div class="col-4 offset-8">
+    <!-- Order Totals Section -->
+    <div class="order-totals-section">
       <app-order-totals></app-order-totals>
-
-      <a *ngIf="(basket$|async)" routerLink="/checkout" class="py-3 btn btn-outline-primary btn-block w-100">
-         Proceed to checkout
-      </a>
+      <div class="checkout-button-container" *ngIf="(basket$|async)">
+        <a routerLink="/checkout" class="checkout-button">
+          Proceed to checkout
+        </a>
+      </div>
     </div>
   </div>
-
 </div>
